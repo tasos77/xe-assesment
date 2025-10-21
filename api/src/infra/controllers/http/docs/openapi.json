@@ -1,0 +1,93 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "AdManager API",
+    "version": "1.0.0",
+    "description": "API for AdManager with search, show, and store endpoints"
+  },
+  "paths": {
+    "/search": {
+      "get": {
+        "summary": "Search ads",
+        "parameters": [
+          {
+            "name": "input",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 100
+            },
+            "description": "Search input string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/show": {
+      "get": {
+        "summary": "Show all ads",
+        "responses": {
+          "200": {
+            "description": "List of ads",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/store": {
+      "post": {
+        "summary": "Store a new ad",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string" },
+                  "type": {
+                    "type": "string",
+                    "enum": ["Rent", "Buy", "Exchange", "Donation"]
+                  },
+                  "area": { "type": "string" },
+                  "amount": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "description": { "type": "string", "nullable": true },
+                  "placeId": { "type": "string" }
+                },
+                "required": ["title", "type", "area", "amount", "placeId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Stored ad response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
