@@ -20,11 +20,12 @@ import * as caRepo from './infra/repositories/cache/repository'
 import * as dbRepo from './infra/repositories/db/repository'
 import * as ssRepo from './infra/repositories/searchServer/repository'
 import * as loggerMaker from './infra/utils/logger'
+
 // init repos
 const logger: LoggerRepository = loggerMaker.make()
 const searchServerRepository: SearchServerRepository = ssRepo.make()
 const cacheRepository: CacheRepository = caRepo.make({ logger })
-const dbRepository: DBRepository = dbRepo.make({ logger })
+const dbRepository: Promise<DBRepository> = dbRepo.make({ logger })
 
 // init services
 const searchService: SearchService = sService.make({ logger, searchServerRepository, cacheRepository })

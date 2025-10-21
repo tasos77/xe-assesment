@@ -79,7 +79,3 @@ In more detail, this folder contains the following subfolders.
 - `repositories`: Technical implementations of repositories..
 - `services`: Technical implementations of services.
 - `utils`:Utility functions and helpers.
-
-### Missing Parts
-**DB Insertion not working properly**\
-**DB Data fetching not working properly**

@@ -1,26 +1,23 @@
-import type { DBRepository } from "../../repositories/db/repository";
+import type { AdResponse } from '../../../infra/controllers/http/showData/types/responses'
+import type { DBRepository } from '../../repositories/db/repository'
 
 interface ShowAllServiceDeps {
-	dbRepository: DBRepository;
+  dbRepository: Promise<DBRepository>
 }
 
 export interface ShowAllService {
-	getAllAds: () => Promise<any>;
+  getAllAds: () => Promise<AdResponse | Error>
 }
 
 export const make = (deps: ShowAllServiceDeps): ShowAllService => {
-	const { dbRepository } = deps;
+  const { dbRepository } = deps
 
-	// propagate results or error
-	const getAllAds = async () => {
-		try {
-			return await dbRepository.getAllAds();
-		} catch (error) {
-			return Error;
-		}
-	};
+  // propagate results or error
+  const getAllAds = async (): Promise<AdResponse | Error> => {
+    return await (await dbRepository).getAllAds()
+  }
 
-	return {
-		getAllAds,
-	};
-};
+  return {
+    getAllAds
+  }
+}
